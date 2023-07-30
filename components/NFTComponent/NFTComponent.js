@@ -2,14 +2,17 @@ import React from "react";
 import Image from "next/image";
 
 
-const NFTComponent = ({ nfts, setContractAddress }) => {
+const NFTComponent = ({ nfts, setTokenDetails }) => {
 
   console.log(nfts)
 
   return (
     <div>
       <div> 
-          <div onClick={() => setContractAddress(nfts.tokenAddress)}>
+          <div onClick={() => setTokenDetails({
+           address: nfts.tokenAddress,
+           Id: nfts.tokenId
+          })}>
             <Image
               src={nfts.tokenNfts.contentValue.image.medium}
               width={500}

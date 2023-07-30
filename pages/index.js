@@ -5,6 +5,7 @@ import Head from 'next/head';
 import styles from './Home.module.css';
 import { init, useLazyQuery } from "@airstack/airstack-react";
 import dynamic from 'next/dynamic';
+import AccountComponent from '@/components/AccountComponent/AccountComponent';
 init("59b3109f040748f9b4a038900c6fd3d5");
 
 const NFTComponent = dynamic(() => import('@/components/NFTComponent/NFTComponent'), { ssr: false })
@@ -17,25 +18,35 @@ const Home = () => {
     },
   })
 
-  const [contractAddress, setContractAddress] = useState("");
+  const [tokenDetails, setTokenDetails] = useState({});
+  const [TBAccounts, setTBAccounts] = useState([])
   const [NFTS, setNFTS] = useState([])
+  const [isNexted, setIsNexted] = useState(false)
 
-  console.log(contractAddress)
-
+  
+  console.log(tokenDetails)
+  console.log(TBAccounts)
+  
+  const nexted = () => {
+    setIsNexted(true)
+  }
+  
+  console.log(isNexted)
+  
   const variables = {
-    "address": "0x6EE7AC91BbBc33e146726438496D407b08212b3b",
+    "address": `${account.address}`,
   };
-
+  
   const NFTFetch = `query tokens($address: Identity!) {
-  erc721: TokenBalances(
-    input: {blockchain: ethereum, filter: {owner: {_in: [$address]}, tokenType: {_in: [ERC721]}}}
-  ) {
-    data:TokenBalance {
-      amount
-      chainId
-      id
-      tokenAddress
-      tokenId
+    erc721: TokenBalances(
+      input: {blockchain: ethereum, filter: {owner: {_in: [$address]}, tokenType: {_in: [ERC721]}}}
+      ) {
+        data:TokenBalance {
+          amount
+          chainId
+          id
+          tokenAddress
+          tokenId
       tokenType
       token {
         name
@@ -58,9 +69,49 @@ const Home = () => {
       }
     }
   }
-  }`
+}`
+
+const TBAVars = {
+  "tokenAddress" : "0xAccD4112dCC20B6a40068eC5DCC695e5cD8Ee87F",
+  "tokenId" : "9"
+}
+
+const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
+  Accounts(
+    input: {blockchain: polygon, limit: 200, filter: {tokenAddress: {_eq: $tokenAddress}, tokenId: {_eq: $tokenId}}}
+    ) {
+      Account {
+        address {
+          addresses
+          domains {
+            name
+            isPrimary
+          }
+          socials {
+            dappName
+            profileName
+          }
+        }
+        implementation
+      }
+    }
+  }`;
+  
+  const [fetchTba, response] = useLazyQuery(TBAQuery,TBAVars);
 
   const [fetch, { data, loading, error }] = useLazyQuery(NFTFetch, variables);
+  
+  useEffect(() => {
+    if (tokenDetails && isNexted) {
+      fetchTba()
+    }
+  }, [tokenDetails, isNexted])
+  
+  useEffect(() => {
+    if (response.data != null) {
+      setTBAccounts(response.data.Accounts.Account)
+    }
+  }, [response]);
 
   useEffect(() => {
     if (account.address) {
@@ -90,14 +141,20 @@ const Home = () => {
         <ConnectButton />
       
         {NFTS.length > 0 && (
-          NFTS.map((nft, index) => (
-            <div key={index}>
-              <NFTComponent nfts={nft} setContractAddress={setContractAddress} />
-              
-            </div>)
-          )
-        )}
-        <button>Next</button>
+          (tokenDetails && isNexted) ? (
+            <AccountComponent /> 
+          ) : (
+            <>
+          {NFTS.map((nft, index) => (
+                  <div key={index}>
+                    <NFTComponent nfts={nft} setTokenDetails={setTokenDetails} />
+                  </div>
+                ))}
+                <button onClick={nexted}>Next</button>
+              </>
+            ))
+          }
+        
         
 
       <footer className={styles.footer}>
