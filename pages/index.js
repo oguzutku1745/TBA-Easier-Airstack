@@ -40,7 +40,7 @@ const Home = () => {
   
   const NFTFetch = `query tokens($address: Identity!) {
     erc721: TokenBalances(
-      input: {blockchain: ethereum, filter: {owner: {_in: [$address]}, tokenType: {_in: [ERC721]}}}
+      input: {blockchain: polygon, filter: {owner: {_in: [$address]}, tokenType: {_in: [ERC721]}}}
       ) {
         data:TokenBalance {
           amount
@@ -72,10 +72,6 @@ const Home = () => {
   }
 }`
 
-const TBAVars = {
-  "tokenAddress" : "0xAccD4112dCC20B6a40068eC5DCC695e5cD8Ee87F",
-  "tokenId" : "9"
-}
 
 const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
   Accounts(
@@ -97,14 +93,19 @@ const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
       }
     }
   }`;
+
+  console.log(tokenDetails.address)
   
-  const [fetchTba, response] = useLazyQuery(TBAQuery,TBAVars);
+  const [fetchTba, response] = useLazyQuery(TBAQuery);
 
   const [fetch, { data, loading, error }] = useLazyQuery(NFTFetch, variables);
   
   useEffect(() => {
     if (tokenDetails && isNexted) {
-      fetchTba()
+      fetchTba({    
+      "tokenAddress": `${tokenDetails.address}`,
+      "tokenId": `${tokenDetails.Id}` 
+    } );
     }
   }, [tokenDetails, isNexted])
   

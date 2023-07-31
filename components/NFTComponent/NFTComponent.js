@@ -14,12 +14,14 @@ const NFTComponent = ({ nfts, setTokenDetails }) => {
      Id: nfts.tokenId
     })}>
       {nfts.token.name}<br/>
+      {nfts.tokenNfts?.contentValue?.image?.medium &&
       <Image
         src={nfts.tokenNfts.contentValue.image.medium}
         width={250}
         height={250}
         alt="NFT Display Picture"
       />
+      }
     </div>
   );
 };
