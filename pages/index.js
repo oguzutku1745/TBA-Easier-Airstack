@@ -6,6 +6,7 @@ import styles from './Home.module.css';
 import { init, useLazyQuery } from "@airstack/airstack-react";
 import dynamic from 'next/dynamic';
 import AccountComponent from '@/components/AccountComponent/AccountComponent';
+import Menubar from '@/components/Navbar/Menubar';
 init("59b3109f040748f9b4a038900c6fd3d5");
 
 const NFTComponent = dynamic(() => import('@/components/NFTComponent/NFTComponent'), { ssr: false })
@@ -22,16 +23,16 @@ const Home = () => {
   const [TBAccounts, setTBAccounts] = useState([])
   const [NFTS, setNFTS] = useState([])
   const [isNexted, setIsNexted] = useState(false)
-
-  
-  console.log(tokenDetails)
-  console.log(TBAccounts)
   
   const nexted = () => {
     setIsNexted(true)
   }
-  
-  console.log(isNexted)
+
+  const resetPage = () => {
+    setTokenDetails({});
+    setTBAccounts([]);
+    setIsNexted(false);
+  };
   
   const variables = {
     "address": `${account.address}`,
@@ -126,9 +127,23 @@ const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
     }
   }, [data])
 
-  console.log(NFTS)
+  const handleAddressChange = (e) => {
+    setTokenDetails({...tokenDetails, address: e.target.value})
+  }
+
+  const handleTokenIdChange = (e) => {
+    setTokenDetails({...tokenDetails, Id: e.target.value})
+  }
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    nexted()
+  };
+
+  console.log(tokenDetails)
 
   return (
+    <Menubar resetPage={resetPage}>
     <div className={styles.container}>
       <Head>
         <title>TBA Easier</title>
@@ -138,19 +153,30 @@ const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
         />
         <link href="/favicon.ico" rel="icon" />
       </Head>
-        <ConnectButton />
-      
+
+        <div className={styles.inputSec}>
+          You can connect your wallet to find your NFTs, or you can directly search for spesific NFT.
+          <form onSubmit={handleFormSubmit}>
+            NFT Address: <input key={tokenDetails.address} value={tokenDetails.address} onChange={handleAddressChange} placeholder='Contract address' className={styles.inputBox}  />
+            Token Id: <input key={tokenDetails.Id} value={tokenDetails.Id} onChange={handleTokenIdChange} placeholder='Token Id' className={styles.inputBox}  />
+            <button className={styles.buttonx}>Find Em</button>
+          </form>
+        </div>
+
         {NFTS.length > 0 && (
           (tokenDetails && isNexted) ? (
-            <AccountComponent /> 
+            TBAccounts.map((acc, index) => (
+              <AccountComponent key={index} acc={acc}/>
+            ))
           ) : (
             <>
-          {NFTS.map((nft, index) => (
-                  <div key={index}>
-                    <NFTComponent nfts={nft} setTokenDetails={setTokenDetails} />
-                  </div>
-                ))}
-                <button onClick={nexted}>Next</button>
+          <div className={styles.nftGallery}>
+            {NFTS.map((nft, index) => (
+              <div key={index}>
+                <NFTComponent nfts={nft} setTokenDetails={setTokenDetails} />
+              </div>
+            ))}
+          </div>
               </>
             ))
           }
@@ -163,6 +189,7 @@ const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
         </a>
       </footer>
     </div>
+    </Menubar>
   );
 };
 

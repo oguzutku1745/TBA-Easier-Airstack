@@ -1,0 +1,10 @@
+.nftItem {
+    margin: 15px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .nftItem:active {
+    transform: scale(0.95);
+  }
+  

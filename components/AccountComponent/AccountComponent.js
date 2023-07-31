@@ -1,7 +1,9 @@
-const AccountComponent = () => {
+const AccountComponent = ({acc}) => {
+
+    console.log(acc)
 
     return(
-        <div>Hey!</div>
+        <div>{acc.address.addresses[0]}</div>
     )
 }
 
