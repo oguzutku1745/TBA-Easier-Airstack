@@ -8,6 +8,15 @@
   flex: 1;
 }
 
+.manageContainer {
+  padding: 0 2rem;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  flex: 1;
+}
+
 .footer {
   display: flex;
   padding: 2rem 0;
@@ -106,6 +115,10 @@
   justify-items: center;
 }
 
+.aligner {
+  margin-top: 30px;
+}
+
 .nftWriting {
   margin-top: 70px;
   font-family: verdana;
@@ -114,6 +127,25 @@
   color: rgb(245, 255, 253);
   text-shadow: rgb(0, 0, 0) 2px 2px 2px;
 }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.header {
+  font-weight: bold;
+}
+
+.row {
+  padding: 10px 0;
+}
+
+.cell {
+  padding: 15px;
+  text-align: left;
+}
+
 
 .inputBox {
   font-size: 14px;
@@ -142,7 +174,23 @@
   gap: 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+}
+
+.infoWriting {
+  font-size: 20px;
+}
+
+.gapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.inputAligner {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  padding: 30px;
 }
 
 .buttonx {

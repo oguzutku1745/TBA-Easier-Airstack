@@ -7,6 +7,7 @@ import { init, useLazyQuery } from "@airstack/airstack-react";
 import dynamic from 'next/dynamic';
 import AccountComponent from '@/components/AccountComponent/AccountComponent';
 import Menubar from '@/components/Navbar/Menubar';
+import Image from 'next/image';
 init("59b3109f040748f9b4a038900c6fd3d5");
 
 const NFTComponent = dynamic(() => import('@/components/NFTComponent/NFTComponent'), { ssr: false })
@@ -19,10 +20,13 @@ const Home = () => {
     },
   })
 
+  const [inputAddress, setInputAddress] = useState("");
+  const [inputTokenId, setInputTokenId] = useState("");
   const [tokenDetails, setTokenDetails] = useState({});
   const [TBAccounts, setTBAccounts] = useState([])
   const [NFTS, setNFTS] = useState([])
   const [isNexted, setIsNexted] = useState(false)
+  const [tokenImage, setTokenImage] = useState("")
   
   const nexted = () => {
     setIsNexted(true)
@@ -129,19 +133,20 @@ const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
   }, [data])
 
   const handleAddressChange = (e) => {
-    setTokenDetails({...tokenDetails, address: e.target.value})
-  }
-
+    setInputAddress(e.target.value);
+  };
+  
   const handleTokenIdChange = (e) => {
-    setTokenDetails({...tokenDetails, Id: e.target.value})
-  }
+    setInputTokenId(e.target.value);
+  };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    nexted()
+    setTokenDetails({ address: inputAddress, Id: inputTokenId });
+    nexted();
   };
 
-  console.log(TBAccounts)
+  console.log(response)
 
   return (
     <Menubar resetPage={resetPage}>
@@ -156,28 +161,67 @@ const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
       </Head>
 
         <div className={styles.inputSec}>
-          You can connect your wallet to find your NFTs, or you can directly search for spesific NFT.
-          <form onSubmit={handleFormSubmit}>
-            NFT Address: <input key={tokenDetails.address} value={tokenDetails.address} onChange={handleAddressChange} placeholder='Contract address' className={styles.inputBox}  />
-            Token Id: <input key={tokenDetails.Id} value={tokenDetails.Id} onChange={handleTokenIdChange} placeholder='Token Id' className={styles.inputBox}  />
+          <div className={styles.infoWriting}>You can connect your wallet to find your NFTs, or you can directly search for spesific NFT.</div>
+          <div className={styles.inputAligner}>
+          <form className={styles.gapper} onSubmit={handleFormSubmit}>
+          NFT Address: <input value={inputAddress} onChange={handleAddressChange} placeholder='Contract address' className={styles.inputBox} />
+          Token Id: <input value={inputTokenId} onChange={handleTokenIdChange} placeholder='Token Id' className={styles.inputBox} />
             <button className={styles.buttonx}>Find Em</button>
           </form>
+          {(tokenDetails && isNexted) && 
+          <Image
+            className={styles.NFTImage}
+            src={tokenImage}
+            width={200}
+            height={200}
+            alt="NFT Display Picture"
+          />}
+          </div>
         </div>
 
         {NFTS.length > 0 && (
             tokenDetails && isNexted ? (
-              TBAccounts?.length > 0 ? (
-                TBAccounts.map((acc, index) => <AccountComponent index={index} key={index} acc={acc} />)
+              <>
+              <div className={styles.nftWriting}>- Your Accounts -</div>
+              {response.loading ? (
+                <div className={styles.aligner}>
+                  Loading...
+                </div>
+              ) : TBAccounts?.length > 0 ? (
+                <div className={styles.aligner}>
+                  <table className={styles.table}>
+                    <thead>
+                      <tr className={styles.header}>
+                        <td className={styles.cell}></td>
+                        <td className={styles.cell}>Account Address</td>
+                        <td className={styles.cell}>Implementation Address</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {TBAccounts.map((acc, index) => (
+                        <AccountComponent index={index} key={index} acc={acc} />
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               ) : (
-                <div>There is no Token Bound Account for this NFT</div>
-              )
+                <div className={styles.aligner}>
+                  There is no Token Bound Account for this NFT
+                </div>
+              )}
+            </>
             ) : (
             <>
           <div className={styles.nftWriting}>- Your NFTs -</div>
           <div className={styles.nftGallery}>
             {NFTS.map((nft, index) => (
               <div key={index}>
-                <NFTComponent nfts={nft} setTokenDetails={setTokenDetails} />
+                <NFTComponent     
+                  setInputAddress={setInputAddress}
+                  setInputTokenId={setInputTokenId} 
+                  setTokenImage={setTokenImage} 
+                  nfts={nft} 
+                  setTokenDetails={setTokenDetails} />
               </div>
             ))}
           </div>
