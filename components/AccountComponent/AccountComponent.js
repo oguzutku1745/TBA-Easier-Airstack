@@ -3,7 +3,9 @@ const AccountComponent = ({acc}) => {
     console.log(acc)
 
     return(
-        <div>{acc.address.addresses[0]}</div>
+        <div>
+            {acc.address.addresses[0]}
+        </div>
     )
 }
 

@@ -165,12 +165,15 @@ const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
         </div>
 
         {NFTS.length > 0 && (
-          (tokenDetails && isNexted) ? (
-            TBAccounts.map((acc, index) => (
-              <AccountComponent key={index} acc={acc}/>
-            ))
-          ) : (
+            tokenDetails && isNexted ? (
+              TBAccounts?.address?.addresses.length > 0 ? (
+                TBAccounts.map((acc, index) => <AccountComponent key={index} acc={acc} />)
+              ) : (
+                <div>There is no Token Bound Account for this NFT</div>
+              )
+            ) : (
             <>
+          <div className={styles.nftWriting}>- Your NFTs -</div>
           <div className={styles.nftGallery}>
             {NFTS.map((nft, index) => (
               <div key={index}>
