@@ -1,0 +1,18 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .header {
+    font-weight: bold;
+  }
+  
+  .row {
+    padding: 10px 0;
+  }
+  
+  .cell {
+    padding: 8px;
+    text-align: left;
+  }
+  

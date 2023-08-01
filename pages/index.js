@@ -141,7 +141,7 @@ const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
     nexted()
   };
 
-  console.log(tokenDetails)
+  console.log(TBAccounts)
 
   return (
     <Menubar resetPage={resetPage}>
@@ -166,8 +166,8 @@ const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
 
         {NFTS.length > 0 && (
             tokenDetails && isNexted ? (
-              TBAccounts?.address?.addresses.length > 0 ? (
-                TBAccounts.map((acc, index) => <AccountComponent key={index} acc={acc} />)
+              TBAccounts?.length > 0 ? (
+                TBAccounts.map((acc, index) => <AccountComponent index={index} key={index} acc={acc} />)
               ) : (
                 <div>There is no Token Bound Account for this NFT</div>
               )
