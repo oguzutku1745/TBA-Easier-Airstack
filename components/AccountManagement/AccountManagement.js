@@ -15,10 +15,11 @@ const AccountManagement = ({ NftDetails, tbaDetails }) => {
     const [currentImplementations, setCurrentImplementations] = useState([])
     const [implementationInput, setImplementationInput] = useState("")
     const [showInput, setShowInput] = useState(false);
+    const [saltFixer, setSaltFixer] = useState()
 
     useEffect(() => {
       const implementationArray = tbaDetails?.Accounts?.Account?.map(acc => acc.implementation);
-      if (implementationArray) { // Only update the state if implementationArray is defined
+      if (implementationArray) { 
         setCurrentImplementations(implementationArray);
       }
     }, [tbaDetails]);
