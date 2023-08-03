@@ -10,7 +10,6 @@ import {
 } from 'wagmi';
 
 const AccountManagement = ({ NftDetails, tbaDetails }) => {
-    
 
     const [currentImplementations, setCurrentImplementations] = useState([])
     const [implementationInput, setImplementationInput] = useState("")
@@ -36,7 +35,7 @@ const AccountManagement = ({ NftDetails, tbaDetails }) => {
             137,
             `${NftDetails.address}`,
             NftDetails.Id,
-            0,
+            saltFixer,
             '0x',
         ],
     });
@@ -51,6 +50,13 @@ const AccountManagement = ({ NftDetails, tbaDetails }) => {
       setImplementationInput(e.target.value)
     }
 
+    const handleCreateTBA = () => {
+        const count = currentImplementations.filter(impl => impl === implementationInput).length;
+        console.log(`The count of the implementation ${implementationInput} is ${count}`);
+        setSaltFixer(count)
+        contractWrite.write?.();
+    };
+
     return (
       <div>
           <button
@@ -62,7 +68,7 @@ const AccountManagement = ({ NftDetails, tbaDetails }) => {
           <div className={`${styles['inputContainer']} ${showInput ? styles.open : styles.closed}`}>
               <input value={implementationInput} placeholder="Implementation address" className={styles.inputField} onChange={handleImplementation} />
               <button
-                  onClick={() => contractWrite.write?.()}
+                  onClick={handleCreateTBA}
                   className={styles.createTbaButton}
               >
                   Create TBA Account

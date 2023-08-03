@@ -3,16 +3,27 @@ import styles from './Home.module.css'
 import { useState, useEffect } from "react";
 import { init, useLazyQuery } from "@airstack/airstack-react";
 import Image from 'next/image';
-import PolygonABI from '@/RegistryABIPolygon';
 import AccountManagement from "@/components/AccountManagement/AccountManagement";
+import { useRouter } from 'next/router'
 init("59b3109f040748f9b4a038900c6fd3d5");
 
 const Manage = () => {
 
+    const router = useRouter();
     const [NftDetails, setNftDetails] = useState({});
     const [isNexted, setIsNexted] = useState(false)
     const [inputAddress, setInputAddress] = useState("");
     const [inputTokenId, setInputTokenId] = useState("");
+
+    
+    console.log(router.query)
+    useEffect(() => {
+      if(router.query){
+      setInputAddress(router.query.address)
+      setInputTokenId(router.query.Id)
+      }
+    },[router.query])
+
 
     const NftImage = `query MyQuery($tokenAddress: Address!, $tokenId: String!) {
       TokenNft(input: {address: $tokenAddress, tokenId: $tokenId, blockchain: polygon}) {

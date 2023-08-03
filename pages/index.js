@@ -1,4 +1,4 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useAccount } from 'wagmi'
 import Head from 'next/head';
@@ -146,7 +146,6 @@ const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
     nexted();
   };
 
-  console.log(response)
 
   return (
     <Menubar resetPage={resetPage}>
@@ -168,15 +167,27 @@ const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
           Token Id: <input value={inputTokenId} onChange={handleTokenIdChange} placeholder='Token Id' className={styles.inputBox} />
             <button className={styles.buttonx}>Find Em</button>
           </form>
-          {(tokenDetails && isNexted) && 
+          {(tokenDetails && isNexted) &&(
+            <> 
           <Image
             className={styles.NFTImage}
             src={tokenImage}
             width={200}
             height={200}
             alt="NFT Display Picture"
-          />}
+          /> 
+          <Link
+            href={{
+              pathname: '/manage',
+              query: tokenDetails
+            }}
+          > Manage Page
+          </Link>
+          </>)
+          }
+          
           </div>
+          
         </div>
 
         {NFTS.length > 0 && (
