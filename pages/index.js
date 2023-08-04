@@ -167,25 +167,33 @@ const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
           Token Id: <input value={inputTokenId} onChange={handleTokenIdChange} placeholder='Token Id' className={styles.inputBox} />
             <button className={styles.buttonx}>Find Em</button>
           </form>
-          {(tokenDetails && isNexted) &&(
-            <> 
-          <Image
-            className={styles.NFTImage}
-            src={tokenImage}
-            width={200}
-            height={200}
-            alt="NFT Display Picture"
-          /> 
-          <Link
-            href={{
-              pathname: '/manage',
-              query: tokenDetails
-            }}
-          > Manage Page
-          </Link>
-          </>)
-          }
-          
+          {(tokenDetails && isNexted) && (
+          <div className={styles.imageAndLinkWrapper}>
+            <Image
+              className={styles.NFTImage}
+              src={tokenImage}
+              width={200}
+              height={200}
+              alt="NFT Display Picture"
+            />
+            <div className={styles.arrowLinkContainer}>
+              <Link
+                className={styles.linkArrow}
+                href={{
+                  pathname: '/manage',
+                  query: tokenDetails
+                }}
+              >
+                Manage this NFT 
+                <div className={styles.arrow}>
+                  <div className={styles.arrowTop}></div>
+                  <div className={styles.arrowBottom}></div>
+                </div>
+              </Link>
+            </div>
+          </div>
+        )}
+
           </div>
           
         </div>
