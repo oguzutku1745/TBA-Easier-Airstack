@@ -272,9 +272,11 @@
 
 .accountManagementContainer {
   display: flex;
+  flex: 1;
   flex-direction: row;
   justify-content: space-between;
   padding: 30px;
+  width: 100%;
 }
 
 .arrow {
@@ -360,6 +362,9 @@
 .arrowLinkContainer {
   display: flex;
   align-items: center;
+  border: 2px solid white;
+  border-radius: 10px;
+  padding: 5px;
 }
 
 .linkArrow:hover .arrow .arrowTop:after {
@@ -373,5 +378,5 @@
 }
 
 .linkArrow:active {
-  transform: scale(0.9); /* Change this to only affect the scaling */
+  transform: scale(0.9);
 }

@@ -1,6 +1,38 @@
 .createAccount {
-    display: block;
+    display: flex;
     margin: 10px;
+    flex: 1;
+    cursor: pointer;
+    gap: 5px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.createAccountText:hover {
+    text-decoration: none;
+    transition-duration: 0.1s;
+    color: #5B42F3
+}
+
+.addressText {
+    font-size: 15px;
+    color: #3a3636;
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 8px solid gray;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    margin-right: 5px;
+    transition: transform 0.3s ease;
+    margin-top: 1.5px;
+    margin-left: 10px;
+}
+
+.triangleDown {
+    transform: rotate(90deg);
 }
 
 .inputContainer {
@@ -10,17 +42,15 @@
 
 .inputContainer.closed {
     max-height: 0px;
+    margin-left: 50px;
 }
 
 .inputContainer.open {
-    max-height: 200px; /* Adjust as needed */
+    max-height: 200px;
+    margin-left: 50px;
 }
 
-.inputField,
-.createTbaButton {
-    display: block;
-    margin: 10px;
-}
+
 
 .accContainer {
     display: flex;
@@ -28,3 +58,64 @@
     flex: 1;
     justify-content: flex-start;
 }
+
+.inputBox {
+    font-size: 14px;
+    border-radius: 6px;
+    line-height: 1.5;
+    padding: 5px 10px;
+    transition: box-shadow 100ms ease-in, border 100ms ease-in, background-color 100ms ease-in;
+    border: 2px solid #dee1e2;
+    color: rgb(14, 14, 16);
+    background: #ebeeee;
+    display: block;
+    height: 36px;
+    width: 60%;
+  }
+  
+  .inputBox:hover {
+    border-color: #ccc;
+  }
+
+  .inputBox,
+  .createTbaButton {
+      display: block;
+      margin: 10px;
+  }
+
+  .dropDownWrapper {
+    border: 2px solid white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: rgba(240, 248, 255, 0.389);
+  }
+
+  .createTbaButton {
+    background-image: linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%);
+    border-radius: .5rem;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    display: flex;
+    font-size: 16px;
+    justify-content: center;
+    padding: 1rem 1.75rem;
+    text-decoration: none;
+    width: 30%;
+    border: 0;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .createTbaButton:hover {
+    background-image: linear-gradient(-180deg, #1D95C9 0%, #17759C 100%);
+  }
+  
+  @media (min-width: 768px) {
+    .createTbaButton {
+      padding: 1rem 2rem;
+    }
+  }

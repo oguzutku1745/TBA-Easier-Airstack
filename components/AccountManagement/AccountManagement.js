@@ -58,20 +58,22 @@ const AccountManagement = ({ NftDetails, tbaDetails }) => {
     };
 
     return (
-      <div>
-          <button
+      <div className={styles.dropDownWrapper}>
+          <div
               onClick={() => setShowInput(!showInput)}
               className={styles.createAccount}
-          >
-              Create Account
-          </button>
+          > 
+             <div className={`${styles.triangle} ${showInput ? styles.triangleDown : ''}`}></div>
+              <span className={styles.createAccountText}>Create Token Bound Account</span>
+          </div>
           <div className={`${styles['inputContainer']} ${showInput ? styles.open : styles.closed}`}>
-              <input value={implementationInput} placeholder="Implementation address" className={styles.inputField} onChange={handleImplementation} />
+              <div className={styles.addressText}>Implementation Address (Starts with 0x)</div>
+              <input value={implementationInput} placeholder="Address" className={styles.inputBox} onChange={handleImplementation} />
               <button
                   onClick={handleCreateTBA}
                   className={styles.createTbaButton}
               >
-                  Create TBA Account
+                  Create Account
               </button>
           </div>
           {contractWrite.isLoading && <div>Sign the Transaction</div>}
