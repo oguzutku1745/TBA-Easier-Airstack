@@ -30,7 +30,7 @@ const NFTComponent = ({ nfts, setTokenDetails, setTokenImage, setInputAddress, s
 
   return (
     <div styles={styles.nftItem} onClick={stateHandler}>
-      {nfts.token.name}<br/>
+      <div className={styles.nftName}>{nfts.token.name}</div><br/>
       { imageError ? 
       (      
         <Image

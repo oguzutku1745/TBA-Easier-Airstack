@@ -38,10 +38,6 @@ const Home = () => {
     setIsNexted(false);
   };
   
-  const variables = {
-    "address": `${account.address}`,
-  };
-  
   const NFTFetch = `query tokens($address: Identity!) {
     erc721: TokenBalances(
       input: {blockchain: polygon, filter: {owner: {_in: [$address]}, tokenType: {_in: [ERC721]}}}
@@ -102,7 +98,7 @@ const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
   
   const [fetchTba, response] = useLazyQuery(TBAQuery);
 
-  const [fetch, { data, loading, error }] = useLazyQuery(NFTFetch, variables);
+  const [fetch, { data, loading, error }] = useLazyQuery(NFTFetch);
   
   useEffect(() => {
     if (tokenDetails && isNexted) {
@@ -115,13 +111,15 @@ const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
   
   useEffect(() => {
     if (response.data != null) {
-      setTBAccounts(response.data.Accounts.Account)
+      setTBAccounts(response.data.Accounts?.Account)
     }
   }, [response]);
 
   useEffect(() => {
     if (account.address) {
-      fetch()
+      fetch(   {   
+        "address": `${account.address}`,
+    })
     }
   },[account.address])
 
@@ -163,9 +161,15 @@ const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
           <div className={styles.infoWriting}>You can connect your wallet to find your NFTs, or you can directly search for spesific NFT.</div>
           <div className={styles.inputAligner}>
           <form className={styles.gapper} onSubmit={handleFormSubmit}>
-          NFT Address: <input value={inputAddress} onChange={handleAddressChange} placeholder='Contract address' className={styles.inputBox} />
-          Token Id: <input value={inputTokenId} onChange={handleTokenIdChange} placeholder='Token Id' className={styles.inputBox} />
-            <button className={styles.buttonx}>Find Em</button>
+            <div className={styles.formGapDetailer}>
+              <span className={styles.inputFrontiers}>NFT Address</span> <input value={inputAddress} onChange={handleAddressChange} placeholder='Contract address' className={styles.inputBox} />
+            </div>
+            <div className={styles.formGapDetailer}>
+              <span className={styles.inputFrontiers}>Token Id</span> <input value={inputTokenId} onChange={handleTokenIdChange} placeholder='Token Id' className={styles.inputBox} />
+            </div>
+
+              <button className={styles.buttonx}>Find TB Accounts</button>
+
           </form>
           {(tokenDetails && isNexted) && (
           <div className={styles.imageAndLinkWrapper}>
@@ -184,7 +188,7 @@ const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
                   query: tokenDetails
                 }}
               >
-                Manage this NFT 
+                <span className={styles.manageWriting}>Manage this NFT </span>
                 <div className={styles.arrow}>
                   <div className={styles.arrowTop}></div>
                   <div className={styles.arrowBottom}></div>

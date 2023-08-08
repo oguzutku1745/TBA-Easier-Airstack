@@ -105,8 +105,12 @@ const Manage = () => {
                   <div className={styles.infoWriting}>You can connect your wallet to find your NFTs, or you can directly search for specific NFT.</div>
                   <div className={styles.inputAligner}>
                     <form className={styles.gapper} onSubmit={handleFormSubmit}>
-                      NFT Address: <input value={inputAddress} onChange={handleAddressChange} placeholder='Contract address' className={styles.inputBox} />
-                      Token Id: <input value={inputTokenId} onChange={handleTokenIdChange} placeholder='Token Id' className={styles.inputBox} />
+                    <div className={styles.formGapDetailer}>
+                      <span className={styles.inputFrontiers}>NFT Address</span> <input value={inputAddress} onChange={handleAddressChange} placeholder='Contract address' className={styles.inputBox} />
+                    </div>
+                    <div className={styles.formGapDetailer}>
+                      <span className={styles.inputFrontiers}>Token Id</span> <input value={inputTokenId} onChange={handleTokenIdChange} placeholder='Token Id' className={styles.inputBox} />
+                    </div>
                       <button className={styles.buttonx}>Fetch NFT</button>
                     </form>
                     {response.loading && <div>Loading...</div>}

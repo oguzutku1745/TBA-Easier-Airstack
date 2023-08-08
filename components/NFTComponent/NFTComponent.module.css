@@ -7,4 +7,9 @@
   .nftItem:active {
     transform: scale(0.95);
   }
+
+  .nftName {
+    font-size: 18px;
+    margin-bottom: -6px;
+  }
   

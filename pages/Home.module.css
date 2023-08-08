@@ -167,7 +167,7 @@
 
 
 .inputBox {
-  font-size: 14px;
+  font-size: 16px;
   border-radius: 6px;
   line-height: 1.5;
   padding: 5px 10px;
@@ -176,7 +176,7 @@
   color: rgb(14, 14, 16);
   background: #dee1e2;
   display: block;
-  height: 36px;
+  height: 40px;
 }
 
 .inputBox:hover {
@@ -196,13 +196,18 @@
 }
 
 .infoWriting {
-  font-size: 20px;
+  font-size: 25px;
+}
+
+.manageWriting{
+  font-size: 17px;
 }
 
 .gapper {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 15px;
+  width: 50%;
 }
 
 .inputAligner {
@@ -224,9 +229,9 @@
   cursor: pointer;
   display: inline-block;
   font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
-  line-height: 20px;
+  line-height: 25px;
   list-style: none;
   padding: 6px 16px;
   position: relative;
@@ -346,7 +351,7 @@
 .imageAndLinkWrapper {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   gap: 20px;
 }
 
@@ -365,6 +370,19 @@
   border: 2px solid white;
   border-radius: 10px;
   padding: 5px;
+  background: rgba( 255, 255, 255, 0.1 );
+  box-shadow: 0 2px 6px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 8.5px );
+  -webkit-backdrop-filter: blur( 8.5px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.arrowLinkContainer:hover,
+.arrowLinkContainer:focus,
+.arrowLinkContainer:active {
+  color: #373839;
+  border-color: #0000006b;
 }
 
 .linkArrow:hover .arrow .arrowTop:after {
@@ -379,4 +397,14 @@
 
 .linkArrow:active {
   transform: scale(0.9);
+}
+
+.inputFrontiers {
+  font-size: 18px;
+}
+
+.formGapDetailer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
