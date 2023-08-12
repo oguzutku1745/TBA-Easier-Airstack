@@ -103,7 +103,7 @@ const Manage = () => {
           <div className={styles.mainWrapper}>
             <div className={styles.manageContainer}>
               <div className={styles.inputAndAccountContainer}>
-                <div className={styles.inputSec}>
+                <div className={styles.inputSecManage}>
                   <div className={styles.infoWriting}>Fetch your NFT to create an account.</div>
                   <div className={styles.inputAligner}>
                     <form className={styles.gapper} onSubmit={handleFormSubmit}>
