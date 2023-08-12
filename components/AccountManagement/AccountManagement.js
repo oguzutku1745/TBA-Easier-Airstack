@@ -14,11 +14,13 @@ const AccountManagement = ({ NftDetails, tbaDetails }) => {
 
     const [currentImplementations, setCurrentImplementations] = useState([])
     const [implementationInput, setImplementationInput] = useState("")
+    const debouncedImplementationInput = useDebounce(implementationInput)
     const [showInput, setShowInput] = useState(false);
     const [saltFixer, setSaltFixer] = useState()
     const [isModalOpen, setModalOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [shouldProceed, setShouldProceed] = useState(false);
+    const [isButtonEnabled, setIsButtonEnabled] = useState(false);
 
 
     const {config} = usePrepareContractWrite({
@@ -27,7 +29,7 @@ const AccountManagement = ({ NftDetails, tbaDetails }) => {
         functionName: 'createAccount',
         chainId: 137,
         args: [
-            `${implementationInput}`,
+            debouncedImplementationInput,
             137,
             `${NftDetails.address}`,
             NftDetails.Id,
@@ -60,8 +62,20 @@ const AccountManagement = ({ NftDetails, tbaDetails }) => {
         hash: data?.hash,
     });
 
+    let buttonTimeout; 
+
     const handleImplementation = (e) => {
         setImplementationInput(e.target.value)
+
+        if (buttonTimeout) clearTimeout(buttonTimeout);
+
+        if (/^0x[a-fA-F0-9]{40}$/.test(e.target.value)) {
+            buttonTimeout = setTimeout(() => {
+                setIsButtonEnabled(true);  // Enable the button using React state
+            }, 1000);
+        } else {
+            setIsButtonEnabled(false);  // Disable the button using React state
+        }
     }
 
     const saltCalculator = () => {
@@ -76,7 +90,7 @@ const AccountManagement = ({ NftDetails, tbaDetails }) => {
             openModal();
             console.log("Attempting to write to contract...");
     
-            // Reset shouldProceed to false after you're done.
+
             setShouldProceed(false);
         }
     }, [shouldProceed]);
@@ -93,7 +107,7 @@ const AccountManagement = ({ NftDetails, tbaDetails }) => {
     
         saltCalculator();
     
-        // Signal that you're ready to proceed.
+
         setShouldProceed(true);
     };
 
@@ -114,6 +128,7 @@ const AccountManagement = ({ NftDetails, tbaDetails }) => {
                 <button
                     onClick={handleCreateTBA}
                     className={styles.createTbaButton}
+                    disabled={!isButtonEnabled}
                 >
                     Create Account
                 </button>

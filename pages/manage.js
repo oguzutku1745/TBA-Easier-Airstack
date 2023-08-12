@@ -96,6 +96,8 @@ const Manage = () => {
         }
       }, [NftDetails, isNexted])
 
+      console.log("Rendered manage page")
+
       return (
         <Menubar>
           <div className={styles.mainWrapper}>
