@@ -93,8 +93,6 @@ const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
       }
     }
   }`;
-
-  console.log(tokenDetails.address)
   
   const [fetchTba, response] = useLazyQuery(TBAQuery);
 

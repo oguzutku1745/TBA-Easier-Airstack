@@ -16,7 +16,6 @@ const Manage = () => {
     const [inputTokenId, setInputTokenId] = useState("");
 
     
-    console.log(router.query)
     useEffect(() => {
       if(router.query){
       setInputAddress(router.query.address)
@@ -95,8 +94,6 @@ const Manage = () => {
         } );
         }
       }, [NftDetails, isNexted])
-
-      console.log("Rendered manage page")
 
       return (
         <Menubar>

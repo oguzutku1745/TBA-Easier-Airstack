@@ -62,7 +62,7 @@ const TxModal = ({ isOpen, onClose, error, isLoading, isSent, isSuccess, isFaile
                     </div>
                 ) : (
                     <div> 
-                      An unknown situation has appeared. Please check the console for details.
+                      An unknown situation has appeared. Please try again in few seconds.
                     </div>
                 )}
                 </div>

@@ -50,8 +50,6 @@ const AccountManagement = ({ NftDetails, tbaDetails }) => {
         }
     }, [tbaDetails]);
 
-    console.log("current Implementations: ", currentImplementations)
-
     useEffect(() => {
         if (error) {
             setErrorMessage(error?.details);
@@ -88,9 +86,6 @@ const AccountManagement = ({ NftDetails, tbaDetails }) => {
         if (shouldProceed) {
             write?.();
             openModal();
-            console.log("Attempting to write to contract...");
-    
-
             setShouldProceed(false);
         }
     }, [shouldProceed]);
