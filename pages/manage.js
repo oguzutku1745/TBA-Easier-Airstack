@@ -104,7 +104,7 @@ const Manage = () => {
             <div className={styles.manageContainer}>
               <div className={styles.inputAndAccountContainer}>
                 <div className={styles.inputSec}>
-                  <div className={styles.infoWriting}>You can connect your wallet to find your NFTs, or you can directly search for specific NFT.</div>
+                  <div className={styles.infoWriting}>Fetch your NFT to create an account.</div>
                   <div className={styles.inputAligner}>
                     <form className={styles.gapper} onSubmit={handleFormSubmit}>
                     <div className={styles.formGapDetailer}>
