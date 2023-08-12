@@ -71,10 +71,10 @@ const AccountManagement = ({ NftDetails, tbaDetails }) => {
 
         if (/^0x[a-fA-F0-9]{40}$/.test(e.target.value)) {
             buttonTimeout = setTimeout(() => {
-                setIsButtonEnabled(true);  // Enable the button using React state
+                setIsButtonEnabled(true); 
             }, 1000);
         } else {
-            setIsButtonEnabled(false);  // Disable the button using React state
+            setIsButtonEnabled(false); 
         }
     }
 
@@ -134,7 +134,7 @@ const AccountManagement = ({ NftDetails, tbaDetails }) => {
                 </button>
             </div>
             {isModalOpen && (
-                <TxModal isLoading={isLoading} isSent={isSuccess} isSuccess={waitForTransaction.isSuccess} error={errorMessage} isOpen={isModalOpen} onClose={closeModal} />
+                <TxModal isLoading={isLoading} isSent={isSuccess} isSuccess={waitForTransaction.isSuccess} error={errorMessage} isOpen={isModalOpen} isFailed={waitForTransaction.isError} onClose={closeModal} />
             )}
         </div>
     );

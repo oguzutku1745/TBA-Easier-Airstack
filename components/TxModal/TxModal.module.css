@@ -54,6 +54,7 @@
   width: 70px;
   text-decoration: none;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .modalClose:hover {
@@ -74,4 +75,13 @@
 .logo {
   max-width: 150px;
   display: block;
+}
+
+.modalInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  margin-top: 5px;
 }
