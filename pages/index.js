@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic';
 import AccountComponent from '@/components/AccountComponent/AccountComponent';
 import Menubar from '@/components/Navbar/Menubar';
 import Image from 'next/image';
-init("59b3109f040748f9b4a038900c6fd3d5");
+init(process.env.NEXT_PUBLIC_AIRSTACK_INIT);
 
 const NFTComponent = dynamic(() => import('@/components/NFTComponent/NFTComponent'), { ssr: false })
 

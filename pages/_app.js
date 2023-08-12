@@ -22,7 +22,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
 
 const { connectors } = getDefaultWallets({
   appName: 'tba',
-  projectId: '0c65b369a6ab392eb23c0e00351f4cb3',
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
   chains,
 });
 

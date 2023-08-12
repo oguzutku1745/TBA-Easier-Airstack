@@ -5,7 +5,7 @@ import { init, useLazyQuery } from "@airstack/airstack-react";
 import Image from 'next/image';
 import AccountManagement from "@/components/AccountManagement/AccountManagement";
 import { useRouter } from 'next/router'
-init("59b3109f040748f9b4a038900c6fd3d5");
+init(process.env.NEXT_PUBLIC_AIRSTACK_INIT);
 
 const Manage = () => {
 
