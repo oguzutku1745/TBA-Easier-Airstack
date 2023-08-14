@@ -9,18 +9,20 @@ import {
 import TxModal from '../TxModal/TxModal'
 import { useDebounce } from '@/helper/useDebounce';
 
+const DEFAULT_IMPLEMENTATION_ADDRESS = '0x2D25602551487C3f3354dD80D76D54383A243358';
+const DOCS_URL = 'https://docs.tokenbound.org/contracts/deployments';
 
 const AccountManagement = ({ NftDetails, tbaDetails }) => {
 
     const [currentImplementations, setCurrentImplementations] = useState([])
-    const [implementationInput, setImplementationInput] = useState("")
+    const [implementationInput, setImplementationInput] = useState(DEFAULT_IMPLEMENTATION_ADDRESS)
     const debouncedImplementationInput = useDebounce(implementationInput)
     const [showInput, setShowInput] = useState(false);
     const [saltFixer, setSaltFixer] = useState()
     const [isModalOpen, setModalOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [shouldProceed, setShouldProceed] = useState(false);
-    const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+    const [isButtonEnabled, setIsButtonEnabled] = useState(true);
 
 
     const {config} = usePrepareContractWrite({
@@ -118,7 +120,9 @@ const AccountManagement = ({ NftDetails, tbaDetails }) => {
                 <span className={styles.createAccountText}>Create Token Bound Account</span>
             </div>
             <div className={`${styles['inputContainer']} ${showInput ? styles.open : styles.closed}`}>
-                <div className={styles.addressText}>Implementation Address (Starts with 0x)</div>
+                <div className={styles.addressText}>
+                This address has taken <a href={DOCS_URL} target="_blank" rel="noopener noreferrer" className={styles.linkStyle}>from</a> the Tokenbound team. Give a different address to customize it.
+                </div>
                 <input value={implementationInput} placeholder="Address" className={styles.inputBox} onChange={handleImplementation} />
                 <button
                     onClick={handleCreateTBA}

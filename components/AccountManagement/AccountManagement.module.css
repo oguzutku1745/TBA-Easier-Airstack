@@ -121,6 +121,13 @@
     cursor: not-allowed;
 }
 
+.linkStyle {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
   
   @media (min-width: 768px) {
     .createTbaButton {
