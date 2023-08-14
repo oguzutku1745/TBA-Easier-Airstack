@@ -242,7 +242,8 @@ const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
                   setInputTokenId={setInputTokenId} 
                   setTokenImage={setTokenImage} 
                   nfts={nft} 
-                  setTokenDetails={setTokenDetails} />
+                  setTokenDetails={setTokenDetails}
+                  next={nexted} />
               </div>
             ))}
           </div>

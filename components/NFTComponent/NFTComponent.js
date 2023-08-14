@@ -3,7 +3,7 @@ import Image from "next/image";
 import styles from './NFTComponent.module.css'
 
 
-const NFTComponent = ({ nfts, setTokenDetails, setTokenImage, setInputAddress, setInputTokenId }) => {
+const NFTComponent = ({ nfts, setTokenDetails, setTokenImage, setInputAddress, setInputTokenId, next }) => {
 
   const [imageError, setImageError] = useState(false);
 
@@ -21,6 +21,8 @@ const NFTComponent = ({ nfts, setTokenDetails, setTokenImage, setInputAddress, s
      })
 
      setTokenImage(imageSrc)
+     
+     next()
 
   }
   const isImageNull = nfts.tokenNfts.contentValue.image === null;
@@ -29,11 +31,12 @@ const NFTComponent = ({ nfts, setTokenDetails, setTokenImage, setInputAddress, s
   const imageSrc = isImageNull || isImageDefault ? "/Noimg.jpeg" : nfts.tokenNfts.contentValue.image.medium;
 
   return (
-    <div styles={styles.nftItem} onClick={stateHandler}>
+    <div className={styles.nftItem} onClick={stateHandler}>
       <div className={styles.nftName}>{nfts.token.name}</div><br/>
       { imageError ? 
       (      
         <Image
+          className={styles.nftAnimation}
           src="/Brokenimg.png"
           width={250}
           height={250}
@@ -42,6 +45,7 @@ const NFTComponent = ({ nfts, setTokenDetails, setTokenImage, setInputAddress, s
       ) : (
         imageSrc &&
             <Image
+              className={styles.nftAnimation}
               src={imageSrc}
               width={250}
               height={250}

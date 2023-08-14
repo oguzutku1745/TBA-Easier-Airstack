@@ -13,3 +13,12 @@
     margin-bottom: -6px;
   }
   
+  .nftAnimation {
+    opacity: 1;
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+}
+
+.nftItem:hover .nftAnimation {
+    opacity: .5;
+}
