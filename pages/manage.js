@@ -132,7 +132,7 @@ const Manage = () => {
               </div>
       
               <footer className={styles.footer}>
-                <a href="https://github.com/oguzutku1745" rel="noopener noreferrer" target="_blank">
+                <a href="https://github.com/oguzutku1745/TBA-Easier" rel="noopener noreferrer" target="_blank">
                   Made with ❤️ by KyaTzu
                 </a>
               </footer>
