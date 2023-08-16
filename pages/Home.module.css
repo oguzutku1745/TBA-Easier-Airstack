@@ -137,6 +137,7 @@
 
 .aligner {
   margin-top: 30px;
+  margin-bottom: 50px;
 }
 
 .nftWriting {
@@ -155,6 +156,10 @@
 
 .header {
   font-weight: bold;
+  display: flex;
+  justify-content: flex-start;
+  gap:205px;
+  margin-left: 38px;
 }
 
 .row {

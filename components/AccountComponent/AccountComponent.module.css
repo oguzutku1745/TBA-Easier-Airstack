@@ -20,4 +20,66 @@
     text-align: left;
   }
 
+  .triangle {
+    width: 0;
+    height: 0;
+    border-left: 8px solid gray;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    margin-right: 5px;
+    transition: transform 0.3s ease;
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+.triangleDown {
+    transform: rotate(90deg);
+}
   
+.detailContainer {
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+
+}
+
+.detailContainer.closed {
+  margin-left: 50px;
+}
+
+.detailContainer.open {
+  margin-left: 50px;
+}
+
+.tbaNftDetailDisplay {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.headers {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  margin-bottom: 10px;
+}
+
+.noAsset {
+  display: flex;
+  justify-content: center;
+  font-weight: 200px;
+  font-size: 15px;
+  margin-right: 50px;
+}
+
+.imageHeader, .tokenAddressHeader, .tokenIdHeader {
+  font-weight: 600px;
+}
+
+.tokenIdAligner {
+  margin-right: 30px;
+}
+
+.tokenAddressAligner {
+  margin-right: 50px;
+}

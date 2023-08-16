@@ -121,7 +121,7 @@ const AccountManagement = ({ NftDetails, tbaDetails }) => {
             </div>
             <div className={`${styles['inputContainer']} ${showInput ? styles.open : styles.closed}`}>
                 <div className={styles.addressText}>
-                This address has taken <a href={DOCS_URL} target="_blank" rel="noopener noreferrer" className={styles.linkStyle}>from</a> the Tokenbound team. Give a different address to customize it.
+                Address is obtained <a href={DOCS_URL} target="_blank" rel="noopener noreferrer" className={styles.linkStyle}>from</a> Tokenbound team. Use a different one to customize it.
                 </div>
                 <input value={implementationInput} placeholder="Address" className={styles.inputBox} onChange={handleImplementation} />
                 <button

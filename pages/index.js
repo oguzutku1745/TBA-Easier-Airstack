@@ -23,10 +23,10 @@ const Home = () => {
   const [inputAddress, setInputAddress] = useState("");
   const [inputTokenId, setInputTokenId] = useState("");
   const [tokenDetails, setTokenDetails] = useState({});
-  const [TBAccounts, setTBAccounts] = useState([])
   const [NFTS, setNFTS] = useState([])
   const [isNexted, setIsNexted] = useState(false)
   const [tokenImage, setTokenImage] = useState("")
+  const [tbaNftDetails, setTbaNftDetails] = useState([])
   
   const nexted = () => {
     setIsNexted(true)
@@ -34,7 +34,7 @@ const Home = () => {
 
   const resetPage = () => {
     setTokenDetails({});
-    setTBAccounts([]);
+    setTbaNftDetails([])
     setIsNexted(false);
   };
   
@@ -73,45 +73,59 @@ const Home = () => {
 }`
 
 
-const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
-  Accounts(
-    input: {blockchain: polygon, limit: 200, filter: {tokenAddress: {_eq: $tokenAddress}, tokenId: {_eq: $tokenId}}}
+  const tbaNfts = `query MyQuery($tokenAddress: Address, $tokenId: String) {
+    TokenBalances(
+      input: {blockchain: polygon, filter: {tokenAddress: {_eq: $tokenAddress}, tokenId: {_eq: $tokenId}}}
     ) {
-      Account {
-        address {
+      TokenBalance {
+        tokenAddress
+        tokenId
+        owner {
           addresses
-          domains {
-            name
-            isPrimary
-          }
-          socials {
-            dappName
-            profileName
+        }
+        tokenNfts {
+          erc6551Accounts {
+            implementation
+            address {
+              addresses
+              tokenBalances {
+                tokenAddress
+                tokenId
+                tokenNfts {
+                  contentValue {
+                    image {
+                      extraSmall
+                    }
+                  }
+                }
+              }
+            }
           }
         }
-        implementation
       }
     }
-  }`;
+  }`
   
-  const [fetchTba, response] = useLazyQuery(TBAQuery);
 
   const [fetch, { data, loading, error }] = useLazyQuery(NFTFetch);
+
+  const [fetchTbaNfts, responseTbaNfts] = useLazyQuery(tbaNfts);
   
   useEffect(() => {
     if (tokenDetails && isNexted) {
-      fetchTba({    
+    fetchTbaNfts({
       "tokenAddress": `${tokenDetails.address}`,
       "tokenId": `${tokenDetails.Id}` 
-    } );
+    })
     }
   }, [tokenDetails, isNexted])
-  
+
+
   useEffect(() => {
-    if (response.data != null) {
-      setTBAccounts(response.data.Accounts?.Account)
+    if (responseTbaNfts.data != null) {
+      setTbaNftDetails(responseTbaNfts.data?.TokenBalances?.TokenBalance[0]?.tokenNfts?.erc6551Accounts)
     }
-  }, [response]);
+  }, [responseTbaNfts]);
 
   useEffect(() => {
     if (account.address) {
@@ -204,22 +218,21 @@ const TBAQuery = `query MyQuery($tokenAddress: Address, $tokenId: String) {
             tokenDetails && isNexted ? (
               <>
               <div className={styles.nftWriting}>- Your Accounts -</div>
-              {response.loading ? (
+              {responseTbaNfts.loading ? (
                 <div className={styles.aligner}>
                   Loading...
                 </div>
-              ) : TBAccounts?.length > 0 ? (
+              ) : tbaNftDetails?.length > 0 ? (
                 <div className={styles.aligner}>
                   <table className={styles.table}>
                     <thead>
                       <tr className={styles.header}>
-                        <td className={styles.cell}></td>
                         <td className={styles.cell}>Account Address</td>
                         <td className={styles.cell}>Implementation Address</td>
                       </tr>
                     </thead>
                     <tbody>
-                      {TBAccounts.map((acc, index) => (
+                      {tbaNftDetails.map((acc, index) => (
                         <AccountComponent index={index} key={index} acc={acc} />
                       ))}
                     </tbody>
