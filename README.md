@@ -20,6 +20,8 @@ Creating a new 6551 Account is as easy as a single click. There's no need to dep
 The project uses [Airstack](https://www.airstack.xyz) for indexing services. The key queries used are:
   - NFTFetch: Retrieves the NFTs of connected accounts.
   - tbaNfts: Fetches the 6551 accounts and their NFT assets for a specific NFT.
+  - NftImage: Fetches the images of the selected NFT.
+  - TBAQuery: Queries token-bound accounts for the selected NFT to prevent "salt" conflicts.
 
 
 
