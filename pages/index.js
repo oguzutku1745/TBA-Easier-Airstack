@@ -107,25 +107,28 @@ const Home = () => {
   }`
   
 
+  const variables = {
+    "tokenAddress": `${tokenDetails.address}`,
+    "tokenId": `${tokenDetails.Id}`
+  };
+
   const [fetch, { data, loading, error }] = useLazyQuery(NFTFetch);
 
-  const [fetchTbaNfts, responseTbaNfts] = useLazyQuery(tbaNfts);
+  const [fetchTbaNfts, responseTbaNfts] = useLazyQuery(tbaNfts, variables);
   
   useEffect(() => {
     if (tokenDetails && isNexted) {
-    fetchTbaNfts({
-      "tokenAddress": `${tokenDetails.address}`,
-      "tokenId": `${tokenDetails.Id}` 
-    })
+    fetchTbaNfts()
     }
   }, [tokenDetails, isNexted])
 
 
   useEffect(() => {
-    if (responseTbaNfts.data != null) {
-      setTbaNftDetails(responseTbaNfts.data?.TokenBalances?.TokenBalance[0]?.tokenNfts?.erc6551Accounts)
+    if (responseTbaNfts.data?.TokenBalances?.TokenBalance && responseTbaNfts.data.TokenBalances.TokenBalance.length > 0) {
+      setTbaNftDetails(responseTbaNfts.data.TokenBalances.TokenBalance[0]?.tokenNfts?.erc6551Accounts);
     }
   }, [responseTbaNfts]);
+  
 
   useEffect(() => {
     if (account.address) {
