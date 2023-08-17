@@ -85,12 +85,13 @@ const AccountManagement = ({ NftDetails, tbaDetails }) => {
     };
     
     useEffect(() => {
-        if (shouldProceed) {
-            write?.();
+        if (shouldProceed && write) {
+            write();
+            console.log(write)
             openModal();
             setShouldProceed(false);
         }
-    }, [shouldProceed]);
+    }, [shouldProceed, write])
     
     const handleCreateTBA = () => {
         setErrorMessage("");
